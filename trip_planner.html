@@ -163,7 +163,7 @@ flex-wrap: wrap;
 						<h2><label class="time-label" for="hour">Time:</label></h2>
 						<label><input checked="checked" name="timeMode" type="radio" value="depart" /> Depart After</label> <label><input name="timeMode" type="radio" value="arrive" /> Arrive By</label></div>
 
-					<div class="time-row"><input id="hour" maxlength="2" placeholder="12" type="number" /> : <input id="minute" maxlength="2" placeholder="00" type="number" /> <select id="ampm"><option>AM</option><option>PM</option> </select></div>
+					<div class="time-row"><input id="hour" max="12" maxlength="2" min="1" placeholder="12" type="number" /> : <input id="minute" max="59" maxlength="2" min="0" placeholder="00" type="number" /> <select id="ampm"><option>AM</option><option>PM</option> </select></div>
 
 					<div>
 						<h2>&nbsp;</h2>
