@@ -112,7 +112,7 @@ flex-wrap: wrap;
     color: #003262;
   }
 
-  #results {
+  #result-table {
     margin-top: 30px;
     padding: 15px;
     background: #ffffff;
@@ -218,7 +218,25 @@ flex-wrap: wrap;
 
 <h2 style="text-align: center;"><button class="button" onclick="planTrip()">Plan Trip</button></h2>
 
-<div id="results">&nbsp;</div>
+<div id="result-table">
+	<div id="result-header">&nbsp;</div>
+
+	<table border="0" cellpadding="1" cellspacing="1" style="width:100%;">
+		<tbody style="border-top: none">
+			<tr>
+				<td style="width: 49%; vertical-align: top;">
+					<div id="fastest-result">&nbsp;</div>
+				</td>
+				<td style="width: 49%; vertical-align: top;">
+					<div id="optimized-result">&nbsp;</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<p>&nbsp;</p>
+</div>
+<!--<div id="results">&nbsp;</div>-->
 
 <p style="text-align: center;">&nbsp;</p>
 
@@ -243,7 +261,7 @@ flex-wrap: wrap;
           { stop: "Walmart (Loughborough Drive)", times: ["11:38", "13:18", "14:46", "16:26", "17:51", "19:31"] },
           { stop: "Amtrak Train Station", times: ["11:50", "13:30", "14:58", "16:38", "18:03", "19:43", "21:20"] },
           { stop: "K Street Between 18th Street & 19th Street", times: ["11:52", "13:32", "15:00", "16:40", "18:05", "19:45"] },
-          { stop: "Merced Transpo", times: ["12:01", "13:41", "15:09", "16:49", "18:14", "19:54"] },  // REQ filled with Rite Aid/Walgreens time
+          { stop: "Merced Transpo", times: ["11:57", "13:35", "15:05", "16:45", "18:10", "19:50"] },  // REQ filled with Rite Aid/Walgreens time
           { stop: "Rite Aid/Walgreens (G Street)", times: ["12:02", "13:42", "15:10", "16:50", "18:15", "19:55"] },
           { stop: "El Portal Plaza (G Street)", times: ["12:03", "13:43", "15:11", "16:51", "18:16", "19:56"] },
           { stop: "R Street Village Apartments", times: ["12:09", "13:49", "15:17", "16:57", "18:22", "20:02"] }
@@ -278,9 +296,9 @@ flex-wrap: wrap;
           { stop: 'Cardella Road & M Street', times: ["06:48", "07:46", "08:59", "09:57", "11:10", "12:08", "13:21", "14:22", "15:20", "16:18", "17:31", "18:29", "19:42", "20:40", "21:53"] },
           { stop: "M Street & Bellevue Road (Bellevue Ranch)", times: ["06:51", "07:49", "09:02", "10:00", "11:13", "12:11", "13:24", "14:25", "15:23", "16:21", "17:34", "18:32", "19:45", "20:43", "21:56"] },
           { stop: "University Transit Center (UTC)", times: ["07:02", "08:15", "09:13", "10:26", "11:24", "12:37", "13:35", "14:36", "15:34", "16:47", "17:45", "18:58", "19:56", "21:09", "22:07"] },
-          { stop: "Foothill Drive", times: ["07:09", "08:22", "09:20", "10:33", "11:31", "12:44", "13:42", "14:43", "15:41", "16:54", "17:52", "19:05", "20:03", "21:16", "21:16"] },
-          { stop: 'Cardella Road & M Street', times: ["07:13", "08:26", "09:24", "10:37", "11:35", "12:48", "13:46", "14:47", "15:45", "16:58", "17:56", "19:09", "20:07", "21:20", "21:20"] },
-          { stop: 'R Street Village Apartments', times: ["07:18", "08:31", "09:29", "10:42", "11:40", "12:53", "13:51", "14:52", "15:50", "17:03", "18:01", "19:14", "20:12", "21:25", "21:25"] }
+          { stop: "Foothill Drive", times: ["07:09", "08:22", "09:20", "10:33", "11:31", "12:44", "13:42", "14:43", "15:41", "16:54", "17:52", "19:05", "20:03", "21:16", "22:14"] },
+          { stop: 'Cardella Road & M Street', times: ["07:13", "08:26", "09:24", "10:37", "11:35", "12:48", "13:46", "14:47", "15:45", "16:58", "17:56", "19:09", "20:07", "21:20", "22:21"] },
+          { stop: 'R Street Village Apartments', times: ["07:18", "08:31", "09:29", "10:42", "11:40", "12:53", "13:51", "14:52", "15:50", "17:03", "18:01", "19:14", "20:12", "21:25", "22:28"] }
         ]
       },
       {
@@ -341,7 +359,7 @@ flex-wrap: wrap;
         weekday: [
           { stop: "Moraga Subdivision", times: ["09:00", "09:27", "09:54", "10:36", "11:03", "11:30", "11:57", "12:24", "12:51", "13:18", "14:00", "14:27", "14:54", "15:21", "16:03", "16:35", "17:02", "17:29", "17:56", "18:38", "19:05", "19:32", "19:59", "20:26", "20:53", "21:20", "22:02"] },
           { stop: "University Transit Center (UTC)", times: ["09:07", "09:34", "10:16", "10:43", "11:10", "11:37", "12:04", "12:31", "12:58", "13:40", "14:07", "14:34", "15:01", "15:43", "16:10", "16:42", "17:09", "17:36", "18:18", "18:45", "19:12", "19:39", "20:06", "20:33", "21:00", "21:42", "22:09"] },
-          { stop: "Foothill Drive", times: ["09:16", "09:43", "10:25", "10:52", "11:19", "11:46", "12:13", "12:40", "13:07", "13:49", "14:16", "14:43", "15:10", "15:52", "16:24", "16:51", "17:18", "17:45", "18:27", "18:54", "19:21", "19:48", "20:15", "20:42", "21:09", "21:51", "21:51"] },
+          { stop: "Foothill Drive", times: ["09:11", "09:38", "10:20", "10:47", "11:14", "11:41", "12:08", "12:35", "13:02", "13:44", "14:11", "14:38", "15:05", "15:47", "16:19", "16:46", "17:13", "17:40", "18:22", "18:49", "19:16", "19:43", "20:10", "20:37", "21:04", "21:46", "21:46"] },
           { stop: "Tri-College / Mercy Hospital (G Street)", times: ["09:16", "09:43", "10:25", "10:52", "11:19", "11:46", "12:13", "12:40", "13:07", "13:49", "14:16", "14:43", "15:10", "15:52", "16:24", "16:51", "17:18", "17:45", "18:27", "18:54", "19:21", "19:48", "20:15", "20:42", "21:09", "21:51", "21:51"] },
           { stop: "Raley's (G Street)", times: ["09:19", "09:46", "10:28", "10:55", "11:22", "11:49", "12:16", "12:43", "13:10", "13:52", "14:19", "14:46", "15:13", "15:55", "16:27", "16:54", "17:21", "17:48", "18:30", "18:57", "19:24", "19:51", "20:18", "20:45", "21:12", "19:54", "19:54"] },
           { stop: "University Surgery Center", times: ["09:24", "09:51", "10:33", "11:00", "11:27", "11:54", "12:21", "12:48", "13:15", "13:57", "14:24", "14:51", "15:18", "16:00", "16:32", "16:59", "17:26", "17:53", "18:35", "19:02", "19:29", "19:56", "20:23", "20:50", "21:17", "21:59", "21:59"] },
@@ -543,13 +561,12 @@ function findRouteArriveBy(graphPart, start, end, endMinutes) {
   const queue = [{
     stop: end,
     time: endMinutes,
-    path: [],
-    bus_changes: 0
+    path: []
   }];
 
   const visited = new Map(); // key: stop, value: latest time visited
   let bestPaths = [];
-  let totalPaths = 0;
+  let busChangesForPaths = []; 
 
   while (queue.length > 0) {
     // Prioritize later arrival time and fewer bus changes
@@ -560,8 +577,17 @@ function findRouteArriveBy(graphPart, start, end, endMinutes) {
     if (prevTime !== undefined && prevTime >= current.time) continue;
     visited.set(current.stop, current.time);
 
-    if (current.stop === start) {
-      bestPaths[totalPaths++] = current.path;
+    if (current.stop === start && timeToMinutes(current.path[0].arriveTime) > endMinutes - 180) {
+      console.log("current.path:")
+      console.log(current.path);
+      bestPaths.push(current.path);
+      let total_bus_changes = 0;
+      for(let i = 1; i < current.path.length; i++){
+        if(current.path[i].route != current.path[i - 1].route){
+          total_bus_changes++;
+        }
+      }
+      busChangesForPaths.push(total_bus_changes);
       continue;
     }
 
@@ -584,20 +610,45 @@ function findRouteArriveBy(graphPart, start, end, endMinutes) {
             route: edge.route,
             departTime: edge.departTime,
             arriveTime: edge.arriveTime
-          }, ...current.path],
-          bus_changes:
-            current.path.length > 0 &&
-            edge.route !== current.path[0].route
-              ? current.bus_changes + 1
-              : current.bus_changes
+          }, ...current.path]
         });
       }
     }
   }
 
-  bestPaths.sort((a, b) => timeToMinutes(a.at(-1).arriveTime) - timeToMinutes(b.at(-1).arriveTime));
+  let result_path=[];
+  let init_val = Math.min(...busChangesForPaths);
+  console.log(init_val)
+  let optimizedPaths = [];
+  let l = 0;
+  console.log(busChangesForPaths);
+  busChangesForPaths.forEach((num, index) => {
+    if (num === init_val) {
+      optimizedPaths[l] = bestPaths[index];
+      l++
+    }
+  });
+  console.log(optimizedPaths);
   console.log(bestPaths);
-  return bestPaths[0] || null;
+  let tempArrivalTime = bestPaths[0].at(-1).arriveTime;
+  result_path[0] = optimizedPaths[0];
+  for(let i = 1; i < bestPaths.length; i++){
+    if(bestPaths[i].at(-1).arriveTime < tempArrivalTime){
+      tempArrivalTime = bestPaths[i].at(-1).arriveTime;
+      result_path[0] = bestPaths[i];
+    }
+  }
+  tempArrivalTime = optimizedPaths[0].at(-1).arriveTime;
+  result_path[1] = optimizedPaths[0];
+  for(let j = 1; j < optimizedPaths.length; j++){
+    if(optimizedPaths[j].at(-1).arriveTime < tempArrivalTime){
+      tempArrivalTime = optimizedPaths[j].at(-1).arriveTime;
+      result_path[1] = optimizedPaths[j];
+//      console.log(optimizedPaths);
+    }
+  }
+  console.log(result_path);
+  return result_path || null;
 }
 
 function findRouteDepartAfter(graphPart, start, end, startMinutes) {
@@ -607,9 +658,9 @@ function findRouteDepartAfter(graphPart, start, end, startMinutes) {
     path: []
   }];
 
-  const visited = new Map(); // key: stop, value: earliest time visited
+  const visited = new Map();
   let bestPaths = [];
-  let totalPaths = 0;
+  let busChangesForPaths = [];
 
   while (queue.length > 0) {
     queue.sort((a, b) => b.time - a.time || a.bus_changes - b.bus_changes);
@@ -618,18 +669,23 @@ function findRouteDepartAfter(graphPart, start, end, startMinutes) {
     if (prevTime !== undefined && prevTime <= current.time) continue;
     visited.set(current.stop, current.time);
 
-    if (current.stop === end) {
-      bestPaths[totalPaths++] = current.path;
+    if (current.stop === end && timeToMinutes(current.path[0].departTime) < startMinutes + 180) {
+      bestPaths.push(current.path);
+      let total_bus_changes = 0;
+      for(let i = 1; i < current.path.length; i++){
+        if(current.path[i].route != current.path[i - 1].route){
+          total_bus_changes++;
+        }
+      }
+      busChangesForPaths.push(total_bus_changes);
       continue;
     }
 
     const neighbors = graphPart[current.stop] || [];
-    console.log(neighbors);
     for (const edge of neighbors) {
       const depart = timeToMinutes(edge.departTime);
       const arrive = timeToMinutes(edge.arriveTime);
 
-      // Invalid edge if depart < current time or arrive < depart
       if (
         (current.path.length === 0 && depart < startMinutes) ||
         arrive < depart ||
@@ -654,12 +710,50 @@ function findRouteDepartAfter(graphPart, start, end, startMinutes) {
       });
     }
   }
-//  console.log(bestPaths[0][0]);
-//  console.log(bestPaths[0][0].arriveTime);
-  bestPaths.sort((a, b) => timeToMinutes(a.at(-1).arriveTime) - timeToMinutes(b.at(-1).arriveTime));
-  
-//  console.log(bestPaths);
-  return bestPaths[0] || null;
+  let result_path=[];
+//  console.log(busChangesForPaths)
+  let init_val = Math.min(...busChangesForPaths);
+/*  for(let i = 0; i < busChangesForPaths; i++){
+    if(busChangesForPaths[i] < init_val){
+      init_val = busChangesForPaths[i];
+    }
+    console.log(init_val)
+  }*/
+  console.log(init_val)
+  let optimizedPaths = [];
+  let l = 0;
+  busChangesForPaths.forEach((num, index) => {
+    if (num === init_val) {
+      optimizedPaths[l] = bestPaths[index];
+      l++
+    }
+  });
+  console.log(optimizedPaths);
+//  optimizedPaths.forEach((num, index) => {
+//    optimizedPaths[index] = bestPaths[num];
+//  })
+
+//  optimizedPaths.sort((a, b) => timeToMinutes(a.at(-1).arriveTime) - timeToMinutes(b.at(-1).arriveTime));
+//  bestPaths.sort((a, b) => timeToMinutes(a.at(-1).arriveTime) - timeToMinutes(b.at(-1).arriveTime));
+  let tempArrivalTime = bestPaths[0].at(-1).arriveTime;
+  for(let i = 1; i < bestPaths.length; i++){
+    if(bestPaths[i].at(-1).arriveTime < tempArrivalTime){
+      tempArrivalTime = bestPaths[i].at(-1).arriveTime;
+      result_path[0] = bestPaths[i];
+    }
+  }
+  tempArrivalTime = optimizedPaths[0].at(-1).arriveTime;
+  for(let j = 1; j < optimizedPaths.length; j++){
+    if(optimizedPaths[j].at(-1).arriveTime < tempArrivalTime){
+      tempArrivalTime = optimizedPaths[j].at(-1).arriveTime;
+      result_path[1] = optimizedPaths[j];
+      console.log(optimizedPaths);
+    }
+  }
+//  result_path[1] = optimizedPaths[0];
+//  let result_path = [bestPaths[0], optimizedPaths[0]];
+  console.log(result_path);
+  return result_path || null;
 }
 
 
@@ -674,26 +768,27 @@ function planTrip() {
   const end = document.getElementById("end").value.trim();
   const scheduleType = document.querySelector('input[name="scheduleType"]:checked')?.value || "weekday";
   const startMinutes = getStartTimeInMinutes();
-  const output = document.getElementById("results");
+  const header = document.getElementById("result-header");
+  const output = document.getElementById("fastest-result");
+  const output1 = document.getElementById("optimized-result");
   const checklist = document.querySelectorAll('input[name="route_name"]:checked');
   let list = [];
 
   checklist.forEach((checkbox) => {
     list.push(checkbox.value);
   });
-  //console.log(list)
 
   graph = { weekday: {}, weekend: {} };
   routesData.forEach(({ route, weekday, weekend }) => {
-//  console.log(route);
     if (weekday && list.includes(route)) addRouteToGraph(graph.weekday, route, weekday);
     if (weekend && list.includes(route)) addRouteToGraph(graph.weekend, route, weekend);
   });
-  //console.log(graph)
-  output.innerHTML = "";
+  header.innerHTML = "";
 
   if (!start || !end) {
-    output.textContent = "Please enter both start and end locations.";
+    header.textContent = "Please enter both start and end locations.";
+    output.innerHTML = "";
+    output1.innerHTML = "";
     return;
   }
 
@@ -704,12 +799,13 @@ function planTrip() {
 
 
   if (!path || path.length === 0) {
-    output.textContent = "No route found between these locations at this time.";
+    header.textContent = "No route found between these locations at this time.";
+    output.innerHTML = "";
+    output1.innerHTML = "";
     return;
   }
-//  displayGroupedTrip(path, start, end, output);
 
-  output.innerHTML = `<strong>Trip from "${start}" to "${end}":</strong><br><br>`;
+  header.innerHTML = `<strong>Trip from "${start}" to "${end}":</strong><br><br>`;
   var repeated_bus_line = false;
   var current_line = "";
   var last_stop = "";
@@ -717,16 +813,18 @@ function planTrip() {
   var lastDepartTime = "";
   var lastArriveTime = "";
   var j = 1;
-//  console.log(path);
+  console.log(path);
   if(timeMode){
-    path.forEach((step, i) => {
+    output.innerHTML = '<strong>Fastest Route</strong><br>';
+    output1.innerHTML = '<strong>Optimized Route</strong><br>';
+    path[0].forEach((step, i) => {
       if(i == 0){
         current_line = step.route;
         last_stop = step.from;
         upcoming_stop = step.to;
         lastDepartTime = step.departTime;
         lastArriveTime = step.arriveTime;
-        if(path.length == 1){
+        if(path[0].length == 1){
             output.innerHTML += `
           ${j}. Take <strong>${step.route}</strong> from "<em>${step.from}</em>" to "<em>${step.to}</em>"<br>
           &nbsp;&nbsp;&nbsp;&nbsp;Depart: <strong>${to12Hour(step.departTime)}</strong>, Arrive: <strong>${to12Hour(step.arriveTime)}</strong><br><br>`;
@@ -742,7 +840,7 @@ function planTrip() {
           upcoming_stop = step.to;
           lastDepartTime = step.departTime;
           lastArriveTime = step.arriveTime;
-          if(i + 1 == path.length){
+          if(i + 1 == path[0].length){
             output.innerHTML += `
           ${j}. Take <strong>${step.route}</strong> from "<em>${step.from}</em>" to "<em>${step.to}</em>"<br>
           &nbsp;&nbsp;&nbsp;&nbsp;Depart: <strong>${to12Hour(step.departTime)}</strong>, Arrive: <strong>${to12Hour(step.arriveTime)}</strong><br><br>`;
@@ -751,17 +849,58 @@ function planTrip() {
         else{
           upcoming_stop = step.to;
           lastArriveTime = step.arriveTime;
-          if(i + 1 == path.length){
+          if(i + 1 == path[0].length){
             output.innerHTML += `
             ${j}. Take <strong>${current_line}</strong> from "<em>${last_stop}</em>" to "<em>${upcoming_stop}</em>"<br>
             &nbsp;&nbsp;&nbsp;&nbsp;Depart: <strong>${to12Hour(lastDepartTime)}</strong>, Arrive: <strong>${to12Hour(step.arriveTime)}</strong><br><br>`;
           }
         }
       }
-    })
+    });
+
+    j = 1;
+    path[1].forEach((step, i) => {
+      if(i == 0){
+        current_line = step.route;
+        last_stop = step.from;
+        upcoming_stop = step.to;
+        lastDepartTime = step.departTime;
+        lastArriveTime = step.arriveTime;
+        if(path[1].length == 1){
+            output1.innerHTML += `
+          ${j}. Take <strong>${step.route}</strong> from "<em>${step.from}</em>" to "<em>${step.to}</em>"<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;Depart: <strong>${to12Hour(step.departTime)}</strong>, Arrive: <strong>${to12Hour(step.arriveTime)}</strong><br><br>`;
+        }
+      }else{
+        if(step.route != current_line){
+          output1.innerHTML += `
+          ${j}. Take <strong>${current_line}</strong> from "<em>${last_stop}</em>" to "<em>${upcoming_stop}</em>"<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;Depart: <strong>${to12Hour(lastDepartTime)}</strong>, Arrive: <strong>${to12Hour(lastArriveTime)}</strong><br><br>`;
+          j++;
+          current_line = step.route;
+          last_stop = step.from;
+          upcoming_stop = step.to;
+          lastDepartTime = step.departTime;
+          lastArriveTime = step.arriveTime;
+          if(i + 1 == path[1].length){
+            output1.innerHTML += `
+          ${j}. Take <strong>${step.route}</strong> from "<em>${step.from}</em>" to "<em>${step.to}</em>"<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;Depart: <strong>${to12Hour(step.departTime)}</strong>, Arrive: <strong>${to12Hour(step.arriveTime)}</strong><br><br>`;
+          }
+        }
+        else{
+          upcoming_stop = step.to;
+          lastArriveTime = step.arriveTime;
+          if(i + 1 == path[1].length){
+            output1.innerHTML += `
+            ${j}. Take <strong>${current_line}</strong> from "<em>${last_stop}</em>" to "<em>${upcoming_stop}</em>"<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;Depart: <strong>${to12Hour(lastDepartTime)}</strong>, Arrive: <strong>${to12Hour(step.arriveTime)}</strong><br><br>`;
+          }
+        }
+      }
+    });
   }
 }
-    
 
 
 
@@ -769,8 +908,6 @@ function planTrip() {
 
 
 function setupAutocomplete(inputId, dropdownId) {
-//  console.log("ran")
-//  console.log(graph)
   const input = document.getElementById(inputId);
   const dropdown = document.getElementById(dropdownId);
 
