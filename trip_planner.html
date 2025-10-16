@@ -139,9 +139,13 @@ flex-wrap: wrap;
 }
 </style>
 <div>
+
+	<p style="text-align: right">- Jonny K</p>-->
+	<p style="text-align: center;">The UC Merced Trip Planner is an online tool that helps users find transit routes and schedules using CatTracks and Route UC services. By entering trip details, you&nbsp;can view customized travel options. It serves as a convenient way to explore the City of Merced and plan out any trip for each day!</p>
+
 	<h2><label for="start">Start Location:</label></h2>
 
-	<div class="autocomplete-wrapper"><input id="start" placeholder="Start location" type="text" />
+	<div class="autocomplete-wrapper"><input autocomplete="off" id="start" placeholder="Start location" type="text" />
 		<div class="autocomplete-dropdown" id="start-autocomplete">&nbsp;</div>
 	</div>
 </div>
@@ -149,7 +153,7 @@ flex-wrap: wrap;
 <h2><label for="end">End Location:</label></h2>
 
 <div>
-	<div class="autocomplete-wrapper"><input id="end" placeholder="End location" type="text" />
+	<div class="autocomplete-wrapper"><input autocomplete="off" id="end" placeholder="End location" type="text" />
 		<div class="autocomplete-dropdown" id="end-autocomplete">&nbsp;</div>
 	</div>
 </div>
@@ -578,8 +582,6 @@ function findRouteArriveBy(graphPart, start, end, endMinutes) {
     visited.set(current.stop, current.time);
 
     if (current.stop === start && timeToMinutes(current.path[0].arriveTime) > endMinutes - 180) {
-      console.log("current.path:")
-      console.log(current.path);
       bestPaths.push(current.path);
       let total_bus_changes = 0;
       for(let i = 1; i < current.path.length; i++){
@@ -618,18 +620,17 @@ function findRouteArriveBy(graphPart, start, end, endMinutes) {
 
   let result_path=[];
   let init_val = Math.min(...busChangesForPaths);
-  console.log(init_val)
   let optimizedPaths = [];
   let l = 0;
-  console.log(busChangesForPaths);
   busChangesForPaths.forEach((num, index) => {
     if (num === init_val) {
       optimizedPaths[l] = bestPaths[index];
       l++
     }
   });
-  console.log(optimizedPaths);
-  console.log(bestPaths);
+  if(!bestPaths[0]){
+    return null;
+  }
   let tempArrivalTime = bestPaths[0].at(-1).arriveTime;
   result_path[0] = optimizedPaths[0];
   for(let i = 1; i < bestPaths.length; i++){
@@ -644,10 +645,8 @@ function findRouteArriveBy(graphPart, start, end, endMinutes) {
     if(optimizedPaths[j].at(-1).arriveTime < tempArrivalTime){
       tempArrivalTime = optimizedPaths[j].at(-1).arriveTime;
       result_path[1] = optimizedPaths[j];
-//      console.log(optimizedPaths);
     }
   }
-  console.log(result_path);
   return result_path || null;
 }
 
@@ -711,15 +710,7 @@ function findRouteDepartAfter(graphPart, start, end, startMinutes) {
     }
   }
   let result_path=[];
-//  console.log(busChangesForPaths)
   let init_val = Math.min(...busChangesForPaths);
-/*  for(let i = 0; i < busChangesForPaths; i++){
-    if(busChangesForPaths[i] < init_val){
-      init_val = busChangesForPaths[i];
-    }
-    console.log(init_val)
-  }*/
-  console.log(init_val)
   let optimizedPaths = [];
   let l = 0;
   busChangesForPaths.forEach((num, index) => {
@@ -728,13 +719,11 @@ function findRouteDepartAfter(graphPart, start, end, startMinutes) {
       l++
     }
   });
-  console.log(optimizedPaths);
-//  optimizedPaths.forEach((num, index) => {
-//    optimizedPaths[index] = bestPaths[num];
-//  })
 
-//  optimizedPaths.sort((a, b) => timeToMinutes(a.at(-1).arriveTime) - timeToMinutes(b.at(-1).arriveTime));
-//  bestPaths.sort((a, b) => timeToMinutes(a.at(-1).arriveTime) - timeToMinutes(b.at(-1).arriveTime));
+  if(!bestPaths[0]){
+    return null;
+  }
+
   let tempArrivalTime = bestPaths[0].at(-1).arriveTime;
   for(let i = 1; i < bestPaths.length; i++){
     if(bestPaths[i].at(-1).arriveTime < tempArrivalTime){
@@ -747,12 +736,8 @@ function findRouteDepartAfter(graphPart, start, end, startMinutes) {
     if(optimizedPaths[j].at(-1).arriveTime < tempArrivalTime){
       tempArrivalTime = optimizedPaths[j].at(-1).arriveTime;
       result_path[1] = optimizedPaths[j];
-      console.log(optimizedPaths);
     }
   }
-//  result_path[1] = optimizedPaths[0];
-//  let result_path = [bestPaths[0], optimizedPaths[0]];
-  console.log(result_path);
   return result_path || null;
 }
 
@@ -778,6 +763,8 @@ function planTrip() {
     list.push(checkbox.value);
   });
 
+  
+
   graph = { weekday: {}, weekend: {} };
   routesData.forEach(({ route, weekday, weekend }) => {
     if (weekday && list.includes(route)) addRouteToGraph(graph.weekday, route, weekday);
@@ -785,8 +772,48 @@ function planTrip() {
   });
   header.innerHTML = "";
 
+  const stopNames = Array.from(new Set([
+    ...Object.keys(graph.weekday),
+    ...Object.keys(graph.weekend)
+  ])).sort();
+
+
+  if(!stopNames.includes(end) || !stopNames.includes(start)){
+    header.textContent = "Please enter valid start and end location names.";
+    output.innerHTML = "";
+    output1.innerHTML = "";
+    return;
+  }
+
+  startArray = JSON.parse(localStorage.getItem('myStartValue'));
+  startArray.unshift(start);
+  startArray = new Set(startArray);
+  startArray = [...startArray];
+  if(startArray != null && startArray.length > 5){
+    startArray.pop();
+  }
+  
+  endArray = JSON.parse(localStorage.getItem('myEndValue'));
+  endArray.unshift(end);
+  endArray = new Set(endArray);
+  endArray = [...endArray];
+  if(endArray != null && endArray.length > 5){
+    endArray.pop();
+  }
+
+  localStorage.setItem('myStartValue', JSON.stringify(startArray));
+  localStorage.setItem('myEndValue', JSON.stringify(endArray));
+
+
   if (!start || !end) {
     header.textContent = "Please enter both start and end locations.";
+    output.innerHTML = "";
+    output1.innerHTML = "";
+    return;
+  }
+
+  if(start === end){
+    header.textContent = "Please enter different start and end locations.";
     output.innerHTML = "";
     output1.innerHTML = "";
     return;
@@ -805,6 +832,8 @@ function planTrip() {
     return;
   }
 
+
+
   header.innerHTML = `<strong>Trip from "${start}" to "${end}":</strong><br><br>`;
   var repeated_bus_line = false;
   var current_line = "";
@@ -813,7 +842,6 @@ function planTrip() {
   var lastDepartTime = "";
   var lastArriveTime = "";
   var j = 1;
-  console.log(path);
   if(timeMode){
     output.innerHTML = '<strong>Fastest Route</strong><br>';
     output1.innerHTML = '<strong>Optimized Route</strong><br>';
@@ -916,7 +944,39 @@ function setupAutocomplete(inputId, dropdownId) {
   ...Object.keys(graph.weekend)
 ])).sort();
 
+  input.addEventListener("click", () => {
+  if(input.value){
+    input.dispatchEvent(new Event("input"));
+  }
+  dropdown.innerHTML = "";
+  let focusSuggestions = JSON.parse(localStorage.getItem('my' + inputId.charAt(0).toUpperCase() + inputId.slice(1) + 'Value'));
+  if(focusSuggestions == null){
+    focusSuggestions = [
+      "University Transit Center (UTC)",
+      "Amtrak Train Station",
+      "Merced Mall / Target",
+      "Yosemite Crossings Shopping Center",
+      "Walmart (Loughborough Drive)"
+    ];
+    localStorage.setItem('my' + inputId.charAt(0).toUpperCase() + inputId.slice(1) + 'Value', JSON.stringify(focusSuggestions));
+  }
+  focusSuggestions.forEach(itemText => {
+    const item = document.createElement("div");
+    item.className = "autocomplete-item";
+    item.textContent = itemText;
+    item.onclick = () => {
+      input.value = itemText;
+      dropdown.innerHTML = "";
+      dropdown.style.display = "none";
+    };
+    dropdown.appendChild(item);
+  });
+  dropdown.style.display = "block";
+});
+
+
   input.addEventListener("input", () => {
+    
     const value = input.value.trim().toLowerCase();
     dropdown.innerHTML = "";
 
@@ -982,12 +1042,25 @@ function summerRoutes(){
 }
 
 window.onload = () => {
+  startInput = document.getElementById("start");
+  endInput = document.getElementById("end");
+  
   const checkboxes = document.querySelectorAll('input[name="route_name"]');
   checkboxes.forEach(cb => cb.checked = true);
   setupAutocomplete("start", "start-autocomplete");
   setupAutocomplete("end", "end-autocomplete");
-    clampInputValue("hour", 1, 12);   // Clamp to 1–12
-    clampInputValue("minute", 0, 59); // Clamp to 0–59
+  clampInputValue("hour", 1, 12);   // Clamp to 1–12
+  clampInputValue("minute", 0, 59); // Clamp to 0–59
+
+/*  //saved input autofill
+  const savedStartValue = localStorage.getItem('myStartValue');
+  const savedEndValue = localStorage.getItem('myEndValue');
+  if (savedStartValue) {
+    startInput.value = savedStartValue;
+  }
+  if (savedEndValue) {
+    endInput.value = savedEndValue;
+  }*/
 };
 
 
